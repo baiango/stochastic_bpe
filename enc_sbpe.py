@@ -26,7 +26,7 @@ def universal_list_encode(in_integers):
 		output += universal_encode(x)
 	return output
 
-def generate_vocab(in_bytes, attempts=0xffffffffffffffff):
+def generate_vocab(in_bytes, generate_attempts=0xffffffffffffffff):
 	get_highest = lambda x: max(x.items(), key=lambda x: x[1])
 
 	# Initialize the vocabulary with unique characters
@@ -35,7 +35,8 @@ def generate_vocab(in_bytes, attempts=0xffffffffffffffff):
 	char_vocab_size = len(vocab)
 
 	# Attempt to merge token pairs
-	for _ in range(attempts):
+	for iter_ in range(generate_attempts):
+		print(iter_)
 		# Count all consecutive token pairs
 		pair_counts = {}
 		for x, y in zip(tokens[:-1], tokens[1:]):
@@ -202,9 +203,9 @@ def optimize_vocab_order(vocab, in_bytes, attempts=10, begin=1, show_new_best=Tr
 
 	return best_vocab_order, efficiency_count
 
-def compress(content, attempts=10, begin=1, show_new_best=True, print_time=True):
-	raw_vocab = generate_vocab(content)
-	optimized_vocab, drained_distributio_ = optimize_vocab_order(raw_vocab, content, attempts, begin, show_new_best, print_time)
+def compress(content, generate_attempts, optimize_attempts=10, begin=1, show_new_best=True, print_time=True):
+	raw_vocab = generate_vocab(content, generate_attempts)
+	optimized_vocab, drained_distributio_ = optimize_vocab_order(raw_vocab, content, optimize_attempts, begin, show_new_best, print_time)
 	uncompressed_bytes, uncompressed_positions, filtered_vocab, filtered_positions, _ = drain_bytes(optimized_vocab, content)
 
 	sbpe_header = {

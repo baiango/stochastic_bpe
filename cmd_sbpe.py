@@ -10,7 +10,8 @@ def print_help():
 	print()
 	print("<options>")
 	print("\t.be[1] : Starting seed of optimize vocabulary attempts")
-	print("\t.at[10] : Optimize vocabulary attempts")
+	print("\t.a1[1000] : Generate vocabulary attempts")
+	print("\t.a2[10] : Optimize vocabulary attempts")
 
 def process_command(cmd):
 	COMPRESS = 0
@@ -43,8 +44,9 @@ def process_command(cmd):
 	out_data = None
 	if mode == COMPRESS:
 		begin = int(options.get(".be", 1))
-		attempts = int(options.get(".at", 500))
-		out_data = enc_sbpe.compress(content, attempts, begin, show_new_best=False, print_time=False)
+		generate_attempts = int(options.get(".a1", 1000))
+		optimize_attempts = int(options.get(".a2", 10))
+		out_data = enc_sbpe.compress(content, generate_attempts, optimize_attempts, begin, show_new_best=False, print_time=False)
 	elif mode == DECOMPRESS:
 		out_data = dec_sbpe.decompress(content)
 
