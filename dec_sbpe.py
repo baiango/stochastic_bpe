@@ -145,5 +145,5 @@ def decompress_test(file_name="file_sbpe.bin", expected_hash="23556a92e43a3c209f
 if __name__ == "__main__":
 	decompress_test()
 
-	import cProfile
-	cProfile.run('decompress_test()')
+	# import cProfile
+	# cProfile.run('decompress_test()')

@@ -16,6 +16,10 @@ def process_command(cmd):
 	COMPRESS = 0
 	DECOMPRESS = 1
 
+	if len(cmd) < 2:
+		print_help()
+		exit()
+
 	mode = None
 	if cmd[1].lower() == "c":
 		mode = COMPRESS
